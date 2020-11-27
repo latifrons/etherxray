@@ -1,0 +1,5 @@
+[node]
+address = "http://127.0.0.1:8545"
+
+[rpc]
+port = 9999

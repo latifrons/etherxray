@@ -1,7 +1,13 @@
 package core
 
 import (
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/latifrons/etherxray/ethnode"
+	"github.com/latifrons/etherxray/middleware"
+	"github.com/latifrons/etherxray/rpc"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
+	"math/big"
 )
 
 type Node struct {
@@ -11,6 +17,26 @@ type Node struct {
 }
 
 func (n *Node) Setup() {
+	signer := types.NewEIP155Signer(big.NewInt(1))
+
+	rpcWrapper := &middleware.RpcWrapper{
+		RpcAddress: viper.GetString("node.address"),
+	}
+
+	ethNode := &ethnode.EthNode{
+		RpcWrapper: rpcWrapper,
+		Signer:     signer,
+	}
+
+	rpcServer := &rpc.RpcServer{
+		C: &rpc.RpcController{
+			EthNode: ethNode,
+		},
+		Port: viper.GetString("rpc.port"),
+	}
+	rpcServer.InitDefault()
+
+	n.components = append(n.components, rpcServer)
 }
 
 func (n *Node) Start() {
