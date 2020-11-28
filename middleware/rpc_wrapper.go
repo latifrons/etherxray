@@ -143,6 +143,13 @@ func (r *RpcWrapper) BlockTxs(ctx context.Context, height uint64) (*types.Block,
 	return client.BlockByNumber(ctx, big.NewInt(0).SetUint64(height))
 }
 
+func (r *RpcWrapper) BlockTxReceipts(ctx context.Context, hash common.Hash) (*types.Receipt, error) {
+	client, _ := ethclient.DialContext(ctx, r.RpcAddress)
+	defer client.Close()
+
+	return client.TransactionReceipt(ctx, hash)
+}
+
 func (r *RpcWrapper) GetValueRetUint(ctx context.Context, contract common.Address, field string) (int2 *big.Int, err error) {
 	method := crypto.Keccak256([]byte(field + "()"))[:4]
 

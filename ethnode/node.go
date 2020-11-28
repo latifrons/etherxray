@@ -20,14 +20,22 @@ func (n *EthNode) GetBlockTxs(height uint64) (txs []model.Tx, err error) {
 		return
 	}
 	for _, tx := range block.Transactions() {
-		gasCost := big.NewInt(0).SetInt64(int64(tx.Gas()))
+		var receipt *types.Receipt
+		receipt, err = n.RpcWrapper.BlockTxReceipts(tools.GetContextDefault(), tx.Hash())
+		if err != nil {
+			return
+		}
+
+		gasCost := big.NewInt(0).SetUint64(receipt.GasUsed)
 		gasCost.Mul(gasCost, tx.GasPrice())
 		sender, _ := types.Sender(n.Signer, tx)
 
 		txs = append(txs, model.Tx{
-			BasicTx:    tx,
-			MaxGasCost: gasCost,
-			From:       sender,
+			BasicTx: tx,
+			Receipt: receipt,
+			GasCost: gasCost,
+			From:    sender,
+			Rating:  receipt.GasUsed / 21000 / 5,
 		})
 	}
 	return

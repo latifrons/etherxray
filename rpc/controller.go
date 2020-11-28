@@ -115,15 +115,17 @@ func (rpc *RpcController) toRpcTxs(txs []model.Tx) (rpcTx []RpcTx) {
 
 		rpcTx = append(rpcTx, RpcTx{
 			Id:         i,
+			Success:    tx.Receipt.Status == 1,
 			Hash:       tx.BasicTx.Hash().Hex(),
 			GasPrice:   tools.FromWeiToGwei(tx.BasicTx.GasPrice()).FloatString(8),
-			MaxGasCost: tools.FromWei(tx.MaxGasCost).FloatString(8),
-			GasLimit:   int(tx.BasicTx.Gas()),
-			GasUsed:    0,
+			GasCost:    tools.FromWei(tx.GasCost).FloatString(8),
+			GasLimit:   tx.BasicTx.Gas(),
+			GasUsed:    tx.Receipt.GasUsed,
 			From:       tx.From.Hex(),
 			To:         to,
-			Value:      tx.BasicTx.Value().String(),
+			Value:      tools.FromWei(tx.BasicTx.Value()).FloatString(8),
 			DataLength: len(tx.BasicTx.Data()),
+			Rating:     tx.Rating,
 		})
 	}
 	return

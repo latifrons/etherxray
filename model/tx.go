@@ -7,7 +7,9 @@ import (
 )
 
 type Tx struct {
-	BasicTx    *types.Transaction
-	MaxGasCost *big.Int
-	From       common.Address
+	BasicTx *types.Transaction
+	Receipt *types.Receipt
+	From    common.Address
+	GasCost *big.Int
+	Rating  uint64
 }

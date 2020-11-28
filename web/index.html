@@ -10,8 +10,9 @@
             font-family: monospace;
             font-size: small;
         }
-        .tabulator-headers{
-            font-size: x-small;
+
+        .tabulator-headers {
+            font-size: small;
         }
     </style>
 </head>
@@ -20,6 +21,10 @@
 </body>
 <footer>
     <script type="application/javascript">
+        var printIcon = function (cell, formatterParams, onRendered) { //plain text value
+            return "ethtx";
+        };
+
         //initialize table
         var tb = new Tabulator("#main-table", {
             // layout: "fitColumns",      //fit columns to width of table
@@ -32,32 +37,63 @@
             movableColumns: true,      //allow column order to be changed
             // resizableRows: true,       //allow row order to be changed
             initialSort: [             //set the initial sort order of the data
-                {column: "id", dir: "asc"},
+                {column: "rating", dir: "desc"},
             ],
             columns: [                 //define the table columns
                 {title: "Id", field: "id", sorter: "number"},
                 {
-                    title: "Hash", field: "hash", hozAlign: "center", sorter: "string",width: 150,
+                    title: "Hash", field: "hash", hozAlign: "center", sorter: "string", width: 100,
                     formatter: "link", formatterParams: {
                         urlPrefix: "https://etherscan.io/tx/",
                         target: "_blank",
                     }
                 },
+                {title: "S", field: "success", formatter: "tickCross", hozAlign: "center", sorter: "number"},
                 {title: "GasPrice", field: "gas_price", hozAlign: "right", sorter: "number"},
-                {title: "MaxGasCost", field: "max_gas_cost", hozAlign: "right", sorter: "number"},
+                {title: "GasCost", field: "gas_cost", hozAlign: "right", sorter: "number"},
                 {title: "GasLimit", field: "gas_limit", hozAlign: "right", sorter: "number"},
                 {title: "GasUsed", field: "gas_used", hozAlign: "right", sorter: "number"},
-                {title: "From", field: "from", hozAlign: "center", sorter: "string",width: 150},
-                {title: "To", field: "to", hozAlign: "center", sorter: "string",width: 150},
+                {
+                    title: "From", field: "from", hozAlign: "center", sorter: "string", width: 150,
+                    formatter: "link", formatterParams: {
+                        urlPrefix: "https://etherscan.io/address/",
+                        target: "_blank",
+                    }
+                },
+                {
+                    title: "To", field: "to", hozAlign: "center", sorter: "string", width: 150,
+                    formatter: "link", formatterParams: {
+                        urlPrefix: "https://etherscan.io/address/",
+                        target: "_blank",
+                    }
+                },
                 {title: "Value", field: "value", hozAlign: "right", sorter: "number"},
-                {title: "DataLength", field: "data_length", hozAlign: "right", sorter: "number"},
-                // {title:"Gender", field:"gender", width:95, editor:"select", editorParams:{values:["male", "female"]}},
-                // {title:"Rating", field:"rating", formatter:"star", hozAlign:"center", width:100, editor:true},
-                // {title:"Color", field:"col", width:130, editor:"input"},
-                // {title:"Date Of Birth", field:"dob", width:130, sorter:"date", hozAlign:"center"},
-                // {title:"Driver", field:"car", width:90,  hozAlign:"center", formatter:"tickCross", sorter:"boolean", editor:true},
-            ],
+                {title: "Data", field: "data_length", hozAlign: "right", sorter: "number"},
+                {title: "Rating", field: "rating", formatter: "star", hozAlign: "center", width: 100, sorter: "number"},
+                {
+                    title: "", field: "hash", hozAlign: "center",
+                    formatter: "link", formatterParams: {
+                        label: "ethtx",
+                        urlPrefix: "https://ethtx.info/mainnet/",
+                        target: "_blank",
+                    }
+                },
+                {
+                    title: "", field: "hash", hozAlign: "center",
+                    formatter: "link", formatterParams: {
+                        label: "tenderly",
+                        urlPrefix: "https://dashboard.tenderly.co/tx/main/",
+                        target: "_blank",
+                    }
+                },
+            ]
         });
+
+        // {title:"Gender", field:"gender", width:95, editor:"select", editorParams:{values:["male", "female"]}},
+        // {title:"Rating", field:"rating", formatter:"star", hozAlign:"center", width:100, editor:true},
+        // {title:"Color", field:"col", width:130, editor:"input"},
+        // {title:"Date Of Birth", field:"dob", width:130, sorter:"date", hozAlign:"center"},
+        // {title:"Driver", field:"car", width:90,  hozAlign:"center", formatter:"tickCross", sorter:"boolean", editor:true},
 
         let queryString = new URLSearchParams(window.location.search);
         tb.setData("http://127.0.0.1:9999/block/" + queryString.get("height"));
