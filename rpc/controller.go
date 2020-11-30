@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/latifrons/etherxray/ethnode"
 	"github.com/latifrons/etherxray/model"
@@ -71,9 +72,11 @@ func (rpc *RpcController) addRouter(router *gin.Engine) *gin.Engine {
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
-	router.Use()
-	router.GET("health", rpc.Health)
-	router.GET("block/:height", rpc.Block)
+	router.Use(static.Serve("/", static.LocalFile("web", false)))
+
+	router.GET("/health", rpc.Health)
+	router.GET("/block/:height", rpc.Block)
+
 	return router
 }
 

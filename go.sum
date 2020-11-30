@@ -78,6 +78,7 @@ github.com/dop251/goja v0.0.0-20200721192441-a695b0cdd498/go.mod h1:Mw6PkjjMXWbT
 github.com/dvyukov/go-fuzz v0.0.0-20200318091601-be3528f3a813/go.mod h1:11Gm+ccJnvAhCNLlf5+cS9KjtbaD5I5zaZpFMsTHWTw=
 github.com/edsrzf/mmap-go v0.0.0-20160512033002-935e0e8a636c h1:JHHhtb9XWJrGNMcrVP6vyzO4dusgi/HnceHTgxSejUM=
 github.com/edsrzf/mmap-go v0.0.0-20160512033002-935e0e8a636c/go.mod h1:YO35OhQPt3KJa3ryjFM5Bs14WD66h8eGKpfaBNrHW5M=
+github.com/elazarl/go-bindata-assetfs v1.0.0/go.mod h1:v+YaWX3bdea5J/mo8dSETolEo7R71Vk1u8bnjau5yw4=
 github.com/ethereum/go-ethereum v1.9.24 h1:6AK+ORt3EMDO+FTjzXy/AQwHMbu52J2nYHIjyQX9azQ=
 github.com/ethereum/go-ethereum v1.9.24/go.mod h1:JIfVb6esrqALTExdz9hRYvrP0xBDf6wCncIu1hNwHpM=
 github.com/fatih/color v1.3.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
@@ -95,6 +96,8 @@ github.com/gin-contrib/cors v1.3.1 h1:doAsuITavI4IOcd0Y19U4B+O0dNWihRyX//nn4sEmg
 github.com/gin-contrib/cors v1.3.1/go.mod h1:jjEJ4268OPZUcU7k9Pm653S7lXUGcqMADzFA61xsmDk=
 github.com/gin-contrib/sse v0.1.0 h1:Y/yl/+YNO8GZSjAhjMsSuLt29uWRFHdHYUb5lYOV9qE=
 github.com/gin-contrib/sse v0.1.0/go.mod h1:RHrZQHXnP2xjPF+u1gW/2HnVO7nvIa9PG3Gm+fLHvGI=
+github.com/gin-contrib/static v0.0.0-20200916080430-d45d9a37d28e h1:8bZpGwoPxkaivQPrAbWl+7zjjUcbFUnYp7yQcx2r2N0=
+github.com/gin-contrib/static v0.0.0-20200916080430-d45d9a37d28e/go.mod h1:VhW/Ch/3FhimwZb8Oj+qJmdMmoB8r7lmJ5auRjm50oQ=
 github.com/gin-gonic/gin v1.5.0/go.mod h1:Nd6IXA8m5kNZdNEHMBd93KT+mdY3+bewLgRvmCsR2Do=
 github.com/gin-gonic/gin v1.6.3 h1:ahKqKTFpO5KTPHxWZjEdPScmYaGtLo8Y4DMHoEsnp14=
 github.com/gin-gonic/gin v1.6.3/go.mod h1:75u5sXoLsGZoRN5Sgbi1eraJ4GU3++wFwWzhwvtwp4M=
